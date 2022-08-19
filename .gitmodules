@@ -1,3 +1,6 @@
 [submodule "emacs-doom-themes"]
 	path = emacs-doom-themes
 	url = https://github.com/sangwoo-joh/emacs-doom-themes.git
+[submodule "yasnippet-snippets"]
+	path = yasnippet-snippets
+	url = https://github.com/sangwoo-joh/yasnippet-snippets.git
