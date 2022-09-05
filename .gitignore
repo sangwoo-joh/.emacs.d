@@ -1,1 +1,10 @@
-.
+abbrev_defs
+auto-save-list
+.emacs.desktop*
+custom.el
+eln-cache
+elpa
+emojis
+projectile-bookmarks.e*
+transient
+elpy
