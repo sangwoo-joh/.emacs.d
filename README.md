@@ -12,4 +12,4 @@
  I use Emacs 28+ with native compilation. Otherwise,
  `(native-compile-async)` command would fail. If you want to use this
  version, you should check my
- [`.dotfiles](https://github.com/sangwoo-joh/.dotfiles)`.
+ [`.dotfiles`](https://github.com/sangwoo-joh/.dotfiles).
