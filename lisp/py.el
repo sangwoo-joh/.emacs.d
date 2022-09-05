@@ -12,7 +12,7 @@
   :config
   (elpy-enable)
   (setq elpy-rpc-timeout nil)
-  (setq elpy-rpc-python-command "/usr/bin/env python3")
+  (setq elpy-rpc-python-command "python3")
   (setq elpy-rpc-backend "jedi")
   :init
   (add-hook 'elpy-mode-hook #'python-hook))
