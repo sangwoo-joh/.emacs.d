@@ -234,4 +234,20 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+
+;; GitHub Copilot
+;; After setup this package, login to Copilot by `M-x copilot-login'
+;; `M-x copilot-diagnose' can check your status
+(use-package copilot
+  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :ensure t
+  :init (add-hook 'prog-mode-hook #'copilot-mode))
+
+;; Copilot with company mode
+(with-eval-after-load 'company
+  ;; disable inline previews
+  (delq 'company-preview-if-just-one-frontend company-frontends))
+
+(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+(define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
 ;;; packages.el ends here
