@@ -3,6 +3,8 @@
 ;;; Code:
 (use-package yaml-mode :ensure t)
 
+(use-package toml-mode :ensure t)
+
 
 (defun get-leetcode-title ()
   "GET LEETCODE TITLE IN INDEX PAGE"
