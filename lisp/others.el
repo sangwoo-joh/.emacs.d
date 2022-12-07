@@ -5,7 +5,6 @@
 
 (use-package toml-mode :ensure t)
 
-
 (defun get-leetcode-title ()
   "GET LEETCODE TITLE IN INDEX PAGE"
   (interactive)
@@ -49,8 +48,8 @@
       (insert " ")
       (insert title)
       (goto-char (point-min))
-      (re-search-forward "^---$")
-      (re-search-forward "^---$")
+      (re-search-forward "^-\\{3,\\}$")
+      (re-search-forward "^-\\{3,\\}$")
       (goto-char (+ (point) 1))
       (insert "\n")
       (insert title-text)
