@@ -100,6 +100,45 @@
   (interactive)
   (ready-to-leetcode t t))
 
+(defun timestamp ()
+  "PUT TIMESTAMP"
+  (interactive)
+  (insert (format-time-string "%Y-%02m-%02d %02H:%02M:%02S")))
+
+(defun save-with-timestamp ()
+  "SAVE WITH TIMESTAMP"
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (let* ((section-header "^-\\{3,\\}$")
+           (section-last-update-key "^last_update[ ]*:[ ]*")
+           (section-beginning (re-search-forward section-header))
+           (section-end (re-search-forward section-header))
+           (section-string (buffer-substring-no-properties section-beginning section-end)))
+      (goto-char section-beginning)
+      (if (string-match-p section-last-update-key section-string)
+          ;; if there is already last_update section, then kill the outdated date.
+          (progn
+            (re-search-forward section-last-update-key)
+            (kill-line))
+        ;; otherwise, insert new last_update section
+        (goto-char section-end)
+        (previous-line)
+        (goto-char (line-end-position))
+        (electric-newline-and-maybe-indent)
+        (insert "last_update: "))
+      (timestamp))))
+
+(defun remove-timestamp-hook ()
+  "REMOVE TIMESTAMP HOOK"
+  (interactive)
+  (remove-hook 'before-save-hook 'save-with-timestamp 'local))
+
+(defun add-timestamp-hook ()
+  "ADD TIMESTAMP HOOK"
+  (interactive)
+  (add-hook 'before-save-hook 'save-with-timestamp nil 'local))
+
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -107,6 +146,7 @@
 	       ("\\.md$" . markdown-mode)
 	       ("\\.markdown$" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
+  :hook (markdown-mode . (lambda () (add-timestamp-hook)))
   :bind
   (:map markdown-mode-map
         ("C-c C-t C-f" . markdown-table-align)
