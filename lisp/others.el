@@ -170,6 +170,8 @@
   ("\\.php$" . web-mode)
   ("\\.html$" . web-mode))
 
+(use-package rjsx-mode :ensure t)
+
 (use-package auctex
   :defer t
   :ensure t
