@@ -219,7 +219,6 @@
 
 (use-package centered-window :ensure t
   :bind (("C-M-l" . centered-window-mode)))
-(provide 'packages)
 
 ;; bootstrap for straight.el
 (defvar bootstrap-version)
@@ -250,4 +249,7 @@
 
 (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
 (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+
+
+(provide 'packages)
 ;;; packages.el ends here
