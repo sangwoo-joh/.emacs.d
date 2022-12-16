@@ -241,6 +241,7 @@
 (require 'packages)
 (require 'ocaml)
 (require 'py)
+(require 'markdown)
 (require 'others)
 (require 'cpp)
 (require 'ts)
