@@ -27,6 +27,9 @@
 
 (use-package magit
   :ensure t
+  :config
+  (setq magit-refresh-status-buffer nil)
+  (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
   :bind
   ("C-x g" . magit-status)
   ("C-c C-u" . smerge-keep-upper) ;; mine
