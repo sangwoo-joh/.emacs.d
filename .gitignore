@@ -10,3 +10,4 @@ transient
 elpy
 straight
 .*.el
+eshell/
