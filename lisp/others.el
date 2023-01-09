@@ -28,6 +28,7 @@
   :ensure t
   :config
   (setq TeX-PDF-mode t))
+(custom-set-variables '(TeX-command-extra-options "-shell-escape"))
 
 (use-package company-auctex
   :ensure t
