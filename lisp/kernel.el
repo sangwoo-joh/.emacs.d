@@ -256,6 +256,7 @@
 (require 'others)
 (require 'cpp)
 (require 'ts)
+(require 'my-org)
 
 (provide 'kernel)
 ;;; kernel.el ends here
