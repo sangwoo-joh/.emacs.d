@@ -109,7 +109,7 @@
             (kill-line))
         ;; otherwise, insert new last_update section
         (goto-char section-end)
-        (previous-line)
+        (forward-line -1)
         (goto-char (line-end-position))
         (electric-newline-and-maybe-indent)
         (insert "last_update: "))
