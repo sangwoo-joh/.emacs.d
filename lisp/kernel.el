@@ -237,6 +237,17 @@
     (ansi-color-apply-on-region (point-min) (point-max) t)))
 (global-set-key (kbd "C-c C-c C-a") 'display-ansi-colors)
 
+;; functions used in markdown and my-org
+(defun timestamp ()
+  "PUT TIMESTAMP"
+  (interactive)
+  (insert (format-time-string "%Y-%02m-%02d %02H:%02M:%02S")))
+
+(defun leetcode-problem-link (problem)
+  "CREATE LEETCODE PROBLEM LINK"
+  (interactive)
+  (format "https://leetcode.com/problems/%s/" problem))
+
 ;; load remainigs sequentially
 (require 'packages)
 (require 'ocaml)

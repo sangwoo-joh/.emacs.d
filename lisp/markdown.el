@@ -1,7 +1,7 @@
 ;;; markdown.el --- Markdown settings
 ;;; Commentary:
 ;;; Code:
-(defun get-leetcode-title ()
+(defun my/md-get-leetcode-title ()
   "GET LEETCODE TITLE IN INDEX PAGE"
   (interactive)
   (save-excursion
@@ -10,29 +10,24 @@
            (end (search-forward "]")))
       (buffer-substring-no-properties (+ start 1) (- end 1)))))
 
-(defun normalize-title-as-link-text (title)
+(defun my/md-normalize-title-as-link-text (title)
   "NORMALIZE TITLE AS LINK TEXT"
   (interactive)
   (downcase
    (replace-regexp-in-string "[^a-zA-Z0-9]" "-"
                              (replace-regexp-in-string "[,'.()]" "" title))))
 
-(defun leetcode-problem-link (problem)
-  "CREATE LEETCODE PROBLEM LINK"
-  (interactive)
-  (format "https://leetcode.com/problems/%s/" problem))
-
-(defun markdown-title-with-leetcode-link (title link)
+(defun my/markdown-title-with-leetcode-link (title link)
   "CREATE MARKDOWN H1 TITLE WITH LEETCODE LINK"
   (interactive)
   (let* ((url (leetcode-problem-link link)))
     (format "# [%s](%s)" title url)))
 
-(defun ready-leetcode-markdown (title link)
+(defun my/ready-leetcode-markdown (title link)
   "1. COPY .template.md AS link-text.md, 2. SET TITLE AND LINK. THIS MUST BE CALLED"
   (interactive)
   (let* ((mdfile (format "%s.md" link))
-         (title-text (markdown-title-with-leetcode-link title link)))
+         (title-text (my/markdown-title-with-leetcode-link title link)))
     (if (file-exists-p mdfile)
         ;; if exists, just open it
         (find-file mdfile)
@@ -51,13 +46,13 @@
       (insert title-text)
       (save-buffer))))
 
-(defun ready-to-leetcode (&optional remain out-link)
+(defun my/md-ready-to-leetcode (&optional remain out-link)
   "GET READY TO LEETCODE!"
   (interactive)
   (save-excursion
     (xref-push-marker-stack)
-    (let* ((title (get-leetcode-title))
-           (link (normalize-title-as-link-text title))
+    (let* ((title (my/md-get-leetcode-title))
+           (link (my/md-normalize-title-as-link-text title))
            (line-text
             (buffer-substring-no-properties
              (line-beginning-position)
@@ -84,25 +79,20 @@
           (setq link matched)))
 
       (unless remain
-        (ready-leetcode-markdown title link)))))
+        (my/ready-leetcode-markdown title link)))))
 
-(defun fill-link ()
+(defun my/md-fill-link ()
   "JUST FILL LINK"
   (interactive)
-  (ready-to-leetcode t))
+  (my/md-ready-to-leetcode t))
 
-(defun fill-out-link ()
+(defun my/md-fill-out-link ()
   "FILL OUTGOING LINK"
   (interactive)
-  (ready-to-leetcode t t))
+  (my/md-ready-to-leetcode t t))
 
-(defun timestamp ()
-  "PUT TIMESTAMP"
-  (interactive)
-  (insert (format-time-string "%Y-%02m-%02d %02H:%02M:%02S")))
-
-(defun save-with-timestamp ()
-  "SAVE WITH TIMESTAMP"
+(defun save-md-with-timestamp ()
+  "SAVE MD WITH TIMESTAMP"
   (interactive)
   (save-excursion
     (goto-char (point-min))
@@ -125,15 +115,15 @@
         (insert "last_update: "))
       (timestamp))))
 
-(defun remove-timestamp-hook ()
-  "REMOVE TIMESTAMP HOOK"
+(defun delete-md-timestamp-hook ()
+  "DELETE MD TIMESTAMP HOOK"
   (interactive)
-  (remove-hook 'before-save-hook 'save-with-timestamp 'local))
+  (remove-hook 'before-save-hook 'save-md-with-timestamp 'local))
 
-(defun add-timestamp-hook ()
-  "ADD TIMESTAMP HOOK"
+(defun add-md-timestamp-hook ()
+  "ADD MD TIMESTAMP HOOK"
   (interactive)
-  (add-hook 'before-save-hook 'save-with-timestamp nil 'local))
+  (add-hook 'before-save-hook 'save-md-with-timestamp nil 'local))
 
 (use-package markdown-mode
   :ensure t
@@ -142,13 +132,13 @@
 	       ("\\.md$" . markdown-mode)
 	       ("\\.markdown$" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
-  :hook (markdown-mode . (lambda () (add-timestamp-hook)))
+  :hook (markdown-mode . (lambda () (add-md-timestamp-hook)))
   :bind
   (:map markdown-mode-map
         ("C-c C-t C-f" . markdown-table-align)
-        ("C-c C-c C-l" . fill-out-link)
-        ("C-c C-c C-r" . fill-link)
-        ("M-." . ready-to-leetcode)))
+        ("C-c C-c C-l" . my/md-fill-out-link)
+        ("C-c C-c C-r" . my/md-fill-link)
+        ("M-." . my/md-ready-to-leetcode)))
 
 
 (provide 'markdown)
