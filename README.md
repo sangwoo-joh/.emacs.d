@@ -1,3 +1,5 @@
+# NOTE: This project is archived. I've switched to [.doom.d](https://github.com/sangwoo-joh/.doom.d)!
+---
 # .emacs.d
 
  :house: My personal Emacs configurations. :unicorn:
